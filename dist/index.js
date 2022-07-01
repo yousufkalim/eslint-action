@@ -30,6 +30,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.runEslint = void 0;
 const node_path_1 = __importDefault(__nccwpck_require__(9411));
+const node_fs_1 = __importDefault(__nccwpck_require__(7561));
 const core_1 = __nccwpck_require__(2186);
 const exec_1 = __nccwpck_require__(1514);
 const annotations_1 = __nccwpck_require__(5598);
@@ -59,6 +60,9 @@ const runEslint = async (inputs) => {
     (0, core_1.endGroup)();
     (0, core_1.startGroup)('Inputs');
     (0, core_1.info)(JSON.stringify(inputs));
+    (0, core_1.endGroup)();
+    (0, core_1.startGroup)('Dir');
+    (0, core_1.info)(node_fs_1.default.readdirSync(node_path_1.default.resolve()).join('\n'));
     (0, core_1.endGroup)();
     await (0, exec_1.exec)('node', execOptions);
 };
@@ -9734,6 +9738,14 @@ module.exports = require("https");
 
 "use strict";
 module.exports = require("net");
+
+/***/ }),
+
+/***/ 7561:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:fs");
 
 /***/ }),
 

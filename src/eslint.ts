@@ -1,4 +1,5 @@
 import path from 'node:path';
+import fs from 'node:fs';
 import { notice, startGroup, endGroup, info } from '@actions/core';
 import { exec } from '@actions/exec';
 
@@ -46,6 +47,10 @@ export const runEslint = async (inputs: Inputs): Promise<void> => {
 
   startGroup('Inputs');
   info(JSON.stringify(inputs));
+  endGroup();
+
+  startGroup('Dir');
+  info(fs.readdirSync(path.resolve()).join('\n'));
   endGroup();
 
   await exec('node', execOptions);
