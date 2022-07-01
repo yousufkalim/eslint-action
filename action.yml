@@ -1,0 +1,33 @@
+name: "ESLint Code Review"
+description: "Run ESLint on files changed in a pull request with inline error and warning annotations"
+author: "yousufkalim"
+
+branding:
+  icon: "check-square"
+  color: "yellow"
+
+runs:
+  using: "node16"
+  main: "dist/index.js"
+
+inputs:
+  github-token:
+    description: The GitHub token used to create an authenticated client
+    required: false
+    default: ${{ github.token }}
+  eslint-args:
+    description: "ESLint CLI flags"
+    required: false
+    default: ""
+  extensions:
+    description: "Extensions to filter"
+    required: false
+    default: "js"
+  annotations:
+    description: "Enable or disable annotations"
+    required: false
+    default: true
+  bin-path:
+    description: "Path to eslint installation directory. Defaults to `node_modules/eslint/bin`"
+    required: false
+    default: "node_modules/eslint/bin"
