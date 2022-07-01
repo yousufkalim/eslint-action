@@ -53,11 +53,10 @@ const runEslint = async (inputs) => {
     (0, core_1.startGroup)('Files for linting.');
     files.forEach((file) => (0, core_1.info)(`- ${file}`));
     (0, core_1.endGroup)();
-    const execOptions = [
-        node_path_1.default.resolve(inputs.binPath, 'eslint'),
-        ...files,
-        ...inputs.eslintArgs,
-    ].filter(Boolean);
+    const execOptions = [node_path_1.default.resolve(inputs.binPath, 'eslint'), ...files, ...inputs.eslintArgs].filter(Boolean);
+    (0, core_1.startGroup)('Exec options');
+    (0, core_1.info)(execOptions.join(' '));
+    (0, core_1.endGroup)();
     await (0, exec_1.exec)('node', execOptions);
 };
 exports.runEslint = runEslint;

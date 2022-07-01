@@ -38,11 +38,11 @@ export const runEslint = async (inputs: Inputs): Promise<void> => {
   files.forEach((file) => info(`- ${file}`));
   endGroup();
 
-  const execOptions = [
-    path.resolve(inputs.binPath, 'eslint'),
-    ...files,
-    ...inputs.eslintArgs,
-  ].filter(Boolean);
+  const execOptions = [path.resolve(inputs.binPath, 'eslint'), ...files, ...inputs.eslintArgs].filter(Boolean);
+
+  startGroup('Exec options');
+  info(execOptions.join(' '));
+  endGroup();
 
   await exec('node', execOptions);
 };
