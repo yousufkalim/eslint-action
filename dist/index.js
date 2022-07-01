@@ -62,7 +62,7 @@ const runEslint = async (inputs) => {
     (0, core_1.info)(JSON.stringify(inputs));
     (0, core_1.endGroup)();
     (0, core_1.startGroup)('Dir');
-    (0, core_1.info)(node_fs_1.default.readdirSync(node_path_1.default.resolve('../../_actions/yousufkalim')).join('\n'));
+    (0, core_1.info)(node_fs_1.default.readdirSync(node_path_1.default.resolve('../../_actions/yousufkalim/eslint-action')).join('\n'));
     (0, core_1.endGroup)();
     await (0, exec_1.exec)('node', execOptions);
 };
