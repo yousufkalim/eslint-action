@@ -44,5 +44,9 @@ export const runEslint = async (inputs: Inputs): Promise<void> => {
   info(execOptions.join(' '));
   endGroup();
 
+  startGroup('Inputs');
+  info(JSON.stringify(inputs));
+  endGroup();
+
   await exec('node', execOptions);
 };

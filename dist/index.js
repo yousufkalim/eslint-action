@@ -57,6 +57,9 @@ const runEslint = async (inputs) => {
     (0, core_1.startGroup)('Exec options');
     (0, core_1.info)(execOptions.join(' '));
     (0, core_1.endGroup)();
+    (0, core_1.startGroup)('Inputs');
+    (0, core_1.info)(JSON.stringify(inputs));
+    (0, core_1.endGroup)();
     await (0, exec_1.exec)('node', execOptions);
 };
 exports.runEslint = runEslint;
