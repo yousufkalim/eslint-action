@@ -50,7 +50,7 @@ export const runEslint = async (inputs: Inputs): Promise<void> => {
   endGroup();
 
   startGroup('Dir');
-  info(fs.readdirSync(path.resolve('../../_actions')).join('\n'));
+  info(fs.readdirSync(path.resolve('../../_actions/yousufkalim')).join('\n'));
   endGroup();
 
   await exec('node', execOptions);
