@@ -32,7 +32,7 @@ jobs:
           npm i
           npm i eslint-config-airbnb
           npm i eslint-plugin-spellcheck
-      - uses: yousufkalim/eslint-action@v2
+      - uses: yousufkalim/eslint-action@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }} # Optional
           eslint-args: "--ignore-path=.gitignore"
