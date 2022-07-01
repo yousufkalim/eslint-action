@@ -1,0 +1,47 @@
+{
+  "name": "eslint-action",
+  "version": "1.0.0",
+  "description": "Run ESLint on files changed in a pull request with inline error and warning annotations",
+  "author": "yousufkalim",
+  "license": "MIT",
+  "private": "true",
+  "repository": "https://github.com/yousufkalim/eslint-action.git",
+  "bugs": "https://github.com/yousufkalim/eslint-action/issues",
+  "homepage": "https://github.com/yousufkalim/eslint-action#readme",
+  "main": "lib/main.js",
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "keywords": [
+    "eslint",
+    "github-action",
+    "eslint-action",
+    "lint-changed-files",
+    "ci"
+  ],
+  "scripts": {
+    "lint": "eslint . --ext js,ts --ignore-path .gitignore",
+    "build": "tsc",
+    "package": "ncc build --source-map --license licenses.txt",
+    "prepare": "is-ci || husky install"
+  },
+  "dependencies": {
+    "@actions/core": "^1.6.0",
+    "@actions/exec": "^1.1.1",
+    "@actions/github": "^5.0.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^16.2.3",
+    "@octokit/types": "^6.34.0",
+    "@types/node": "^16.11.26",
+    "@vercel/ncc": "^0.33.3",
+    "commitlint-config-non-conventional": "^1.0.1",
+    "eslint": "^8.11.0",
+    "eslint-config-pegasus": "^3.3.0",
+    "husky": "^7.0.4",
+    "is-ci": "^3.0.1",
+    "lint-staged": "^12.3.7",
+    "typescript": "^4.6.2"
+  }
+}
