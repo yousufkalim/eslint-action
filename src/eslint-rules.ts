@@ -1,3 +1,7 @@
+/**
+ * Default ESLint rules.
+ * @author Yousuf Kalim
+ */
 export const eslintRules = {
   env: {
     browser: true,
@@ -12,8 +16,10 @@ export const eslintRules = {
   rules: {
     'no-duplicate-imports': 'error',
     'no-self-compare': 'error',
-    'eqeqeq': 'error',
-    'camelcase': 'error',
+    // eslint-disable-next-line quote-props
+    eqeqeq: 'error',
+    // eslint-disable-next-line quote-props
+    camelcase: 'error',
     'spellcheck/spell-checker': [
       1,
       {

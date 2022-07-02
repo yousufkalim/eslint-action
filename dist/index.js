@@ -8,7 +8,12 @@ require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.disableAnnotations = void 0;
+/**
+ * Disable annotation
+ * @author Yousuf Kalim
+ */
 const core_1 = __nccwpck_require__(2186);
+// Function to disable annotation
 const disableAnnotations = () => {
     (0, core_1.debug)('Disabling Annotations');
     (0, core_1.info)('##[remove-matcher owner=eslint-compact]');
@@ -26,6 +31,10 @@ exports.disableAnnotations = disableAnnotations;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.eslintRules = void 0;
+/**
+ * Default ESLint rules.
+ * @author Yousuf Kalim
+ */
 exports.eslintRules = {
     env: {
         browser: true,
@@ -40,8 +49,10 @@ exports.eslintRules = {
     rules: {
         'no-duplicate-imports': 'error',
         'no-self-compare': 'error',
-        'eqeqeq': 'error',
-        'camelcase': 'error',
+        // eslint-disable-next-line quote-props
+        eqeqeq: 'error',
+        // eslint-disable-next-line quote-props
+        camelcase: 'error',
         'spellcheck/spell-checker': [
             1,
             {
@@ -72,6 +83,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.runEslint = void 0;
+/**
+ * Run eslint on the files changed
+ * @author Yousuf Kalim
+ */
 const node_path_1 = __importDefault(__nccwpck_require__(9411));
 const node_fs_1 = __importDefault(__nccwpck_require__(7561));
 const core_1 = __nccwpck_require__(2186);
@@ -79,33 +94,50 @@ const exec_1 = __nccwpck_require__(1514);
 const annotations_1 = __nccwpck_require__(5598);
 const get_changed_files_1 = __importDefault(__nccwpck_require__(7990));
 const eslint_rules_1 = __nccwpck_require__(4480);
+/**
+ * runEslint
+ * @param {Inputs} inputs
+ * @return {void}
+ */
 const runEslint = async (inputs) => {
+    // Disabling annotations if user doesn't want to
     if (!inputs.annotations) {
         (0, annotations_1.disableAnnotations)();
     }
+    // Getting the changed files
     const changedFiles = await (0, get_changed_files_1.default)(inputs.token);
+    //   Printing the changed files on the console
     (0, core_1.startGroup)('Files changed.');
     changedFiles.forEach((file) => (0, core_1.info)(`- ${file}`));
     (0, core_1.endGroup)();
+    //   Getting only .js, .jsx, .ts, .tsx files to lint
     const files = changedFiles.filter((filename) => {
         const isFileSupported = inputs.extensions.find((ext) => filename.endsWith(`.${ext}`));
         return isFileSupported;
     });
+    //   If no file to lint, exit
     if (files.length === 0) {
         (0, core_1.notice)('No files found. Skipping.');
         return;
     }
+    //   Printing the files to lint on the console
     (0, core_1.startGroup)('Files for linting.');
     files.forEach((file) => (0, core_1.info)(`- ${file}`));
     (0, core_1.endGroup)();
+    //   If user doesn't want to use eslintrc, then use the default eslintrc
     if (!inputs.eslintrc) {
+        // Printing the default eslintrc on the console
         (0, core_1.startGroup)('Rules to apply');
         (0, core_1.info)(JSON.stringify(eslint_rules_1.eslintRules, null, 2));
         (0, core_1.endGroup)();
+        // Creating default .eslintrc file on user's project
         node_fs_1.default.writeFileSync('.eslintrc.json', JSON.stringify(eslint_rules_1.eslintRules));
     }
+    //   Options to run eslint
     const execOptions = [node_path_1.default.resolve(inputs.binPath, 'eslint'), ...files, ...inputs.eslintArgs].filter(Boolean);
+    //   Installing required libs
     await (0, exec_1.exec)('npm i eslint eslint-config-airbnb eslint-plugin-spellcheck');
+    //   Executing eslint
     await (0, exec_1.exec)('node', execOptions);
 };
 exports.runEslint = runEslint;
@@ -119,15 +151,33 @@ exports.runEslint = runEslint;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+/**
+ * Get changed files from PR
+ * @author Yousuf Kalim
+ */
 const github_1 = __nccwpck_require__(5438);
-const getFileNames = (files) => files
-    .filter((file) => file.status !== 'removed')
-    .map((file) => file.filename);
+/**
+ * Get file names from files array
+ * @param {File[]} files
+ * @return {FileNamesList}
+ */
+const getFileNames = (files) => {
+    // Filtering out files that are deleted
+    return files.filter((file) => file.status !== 'removed').map((file) => file.filename);
+};
+/**
+ * Get changed files from PR
+ * @param {string} token
+ * @return {FileNamesList}
+ */
 const getChangedFiles = async (token) => {
+    // Intializing github octokit
     const octokit = (0, github_1.getOctokit)(token);
-    const pullRequest = github_1.context.payload.pull_request;
+    const pullRequest = github_1.context.payload.pull_request; // Getting PR Info
     let filenames = [];
+    //   Checking if code is pushed in default branch or PR is created
     if (!(pullRequest === null || pullRequest === void 0 ? void 0 : pullRequest.number)) {
+        // If PR is not created and code is pushed in default branch, then we have to perform lint on new commits only
         const getCommitEndpointOptions = octokit.rest.repos.getCommit.endpoint.merge({
             owner: github_1.context.repo.owner,
             repo: github_1.context.repo.repo,
@@ -139,6 +189,7 @@ const getChangedFiles = async (token) => {
         filenames = getFileNames(filesChangedInCommit);
     }
     else {
+        // if PR is created, then we have to perform lint on all files in PR
         const listFilesEndpointOptions = octokit.rest.pulls.listFiles.endpoint.merge({
             owner: github_1.context.repo.owner,
             repo: github_1.context.repo.repo,
@@ -149,6 +200,7 @@ const getChangedFiles = async (token) => {
     }
     return filenames;
 };
+// Export
 exports["default"] = getChangedFiles;
 
 
@@ -9932,10 +9984,20 @@ var __webpack_exports__ = {};
 var exports = __webpack_exports__;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+/**
+ * Eslint Action
+ * @author Yousuf Kalim
+ */
 const core_1 = __nccwpck_require__(2186);
 const eslint_1 = __nccwpck_require__(5764);
+/**
+ * run
+ * This function will run at start and get the user inputs
+ * @return {void}
+ */
 const run = async () => {
     try {
+        // Getting user inputs
         const inputs = {
             token: (0, core_1.getInput)('github-token', { required: true }),
             annotations: (0, core_1.getBooleanInput)('annotations'),
@@ -9946,10 +10008,13 @@ const run = async () => {
                 .split(',')
                 .map((ext) => ext.trim()),
         };
+        // Running eslint with user inputs
         await (0, eslint_1.runEslint)(inputs);
+        // If no error, then set success
         process.exit(0);
     }
     catch (err) {
+        // If error, then set failed
         (0, core_1.setFailed)(err.message);
     }
 };
