@@ -47,5 +47,6 @@ export const runEslint = async (inputs: Inputs): Promise<void> => {
 
   const execOptions = [path.resolve(inputs.binPath, 'eslint'), ...files, ...inputs.eslintArgs].filter(Boolean);
 
+  await exec('npm', ['i && npm i eslint-config-airbnb eslint-plugin-spellcheck']);
   await exec('node', execOptions);
 };
