@@ -54,6 +54,41 @@ const runEslint = async (inputs) => {
     (0, core_1.startGroup)('Files for linting.');
     files.forEach((file) => (0, core_1.info)(`- ${file}`));
     (0, core_1.endGroup)();
+    if (!inputs.eslintrc) {
+        node_fs_1.default.writeFileSync('.eslintrc.js', `module.exports = {
+          env: {
+            browser: true,
+            es2021: true,
+          },
+          extends: ["eslint:recommended", "airbnb", "airbnb/hooks"],
+          parserOptions: {
+            ecmaVersion: 12,
+            sourceType: "module",
+          },
+          plugins: ["spellcheck"],
+          rules: {
+            "no-duplicate-imports": "error",
+            "no-self-compare": "error",
+            eqeqeq: "error",
+            camelcase: "error",
+            "spellcheck/spell-checker": [
+              1,
+              {
+                comments: true,
+                strings: true,
+                identifiers: true,
+                templates: true,
+                lang: "en_US",
+                skipWords: ["dict", "aff", "hunspellchecker", "hunspell", "utils"],
+                skipIfMatch: ["http://[^s]*", "^[-\\w]+/[-\\w\\.]+$"],
+                skipWordIfMatch: ["^foobar.*$"],
+                minLength: 3,
+              },
+            ],
+          },
+        };
+        `);
+    }
     const execOptions = [node_path_1.default.resolve(inputs.binPath, 'eslint'), ...files, ...inputs.eslintArgs].filter(Boolean);
     (0, core_1.startGroup)('Exec options');
     (0, core_1.info)(execOptions.join(' '));
@@ -9898,8 +9933,11 @@ const run = async () => {
             token: (0, core_1.getInput)('github-token', { required: true }),
             annotations: (0, core_1.getBooleanInput)('annotations'),
             eslintArgs: (0, core_1.getInput)('eslint-args').split(' '),
+            eslintrc: (0, core_1.getBooleanInput)('eslintrc'),
             binPath: (0, core_1.getInput)('bin-path'),
-            extensions: (0, core_1.getInput)('extensions').split(',').map((ext) => ext.trim()),
+            extensions: (0, core_1.getInput)('extensions')
+                .split(',')
+                .map((ext) => ext.trim()),
         };
         await (0, eslint_1.runEslint)(inputs);
         process.exit(0);
