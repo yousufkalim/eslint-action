@@ -1,6 +1,6 @@
 # ESLint Code Review
 
-> This is a GitHub Action that use airbnb style guide to lint JavaScript and TypeScript projects in a pull request with inline error and warning annotations, It will use default airbnb and eslint recommended rules if `.eslintrc` doesn't exists in your project.
+> This is a GitHub Action that use airbnb style guide to lint JavaScript and TypeScript projects in a pull request with inline error and warning annotations, By default it uses the airbnb and eslint recommended rules if your project doesn't have `.eslintrc` file.
 
 ![Lint](https://github.com/yousufkalim/eslint-action/workflows/Lint/badge.svg)
 
