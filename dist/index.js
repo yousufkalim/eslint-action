@@ -102,7 +102,7 @@ const runEslint = async (inputs) => {
         node_fs_1.default.writeFileSync('.eslintrc.js', `exports.default = ${eslint_rules_1.eslintRules}`);
     }
     const execOptions = [node_path_1.default.resolve(inputs.binPath, 'eslint'), ...files, ...inputs.eslintArgs].filter(Boolean);
-    await (0, exec_1.exec)('npm', ['npm i && npm i eslint-config-airbnb eslint-plugin-spellcheck']);
+    await (0, exec_1.exec)('npm i');
     await (0, exec_1.exec)('node', execOptions);
 };
 exports.runEslint = runEslint;
