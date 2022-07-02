@@ -1,6 +1,6 @@
 {
   "name": "eslint-action",
-  "version": "1.0.0",
+  "version": "1.1.6",
   "description": "Run ESLint on files changed in a pull request with inline error and warning annotations",
   "author": "yousufkalim",
   "license": "MIT",
