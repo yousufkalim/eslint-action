@@ -99,10 +99,15 @@ const runEslint = async (inputs) => {
     files.forEach((file) => (0, core_1.info)(`- ${file}`));
     (0, core_1.endGroup)();
     if (!inputs.eslintrc) {
+        (0, core_1.startGroup)('Rules to apply');
+        (0, core_1.info)(JSON.stringify(eslint_rules_1.eslintRules, null, 2));
+        (0, core_1.endGroup)();
         node_fs_1.default.writeFileSync('.eslintrc.json', JSON.stringify(eslint_rules_1.eslintRules));
     }
-    const execOptions = [node_path_1.default.resolve(inputs.binPath, 'eslint'), ...files, ...inputs.eslintArgs].filter(Boolean);
+    (0, core_1.startGroup)('Required libraries.');
     await (0, exec_1.exec)('npm i eslint eslint-config-airbnb eslint-plugin-spellcheck');
+    (0, core_1.endGroup)();
+    const execOptions = [node_path_1.default.resolve(inputs.binPath, 'eslint'), ...files, ...inputs.eslintArgs].filter(Boolean);
     await (0, exec_1.exec)('node', execOptions);
 };
 exports.runEslint = runEslint;
