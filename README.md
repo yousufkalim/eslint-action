@@ -1,6 +1,6 @@
 # ESLint Code Review
 
-> This is a GitHub Action that lints JavaScript and TypeScript projects in a pull request with inline error and warning annotations, It will use `.eslintrc.js` rules if exists in your project.
+> This is a GitHub Action that use airbnb style guide to lint JavaScript and TypeScript projects in a pull request with inline error and warning annotations, It will use default airbnb and eslint recommended rules if `.eslintrc` doesn't exists in your project.
 
 ![Lint](https://github.com/yousufkalim/eslint-action/workflows/Lint/badge.svg)
 
@@ -27,16 +27,12 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - name: Installing required libraries
-        run: |
-          npm i
-          npm i eslint-config-airbnb
-          npm i eslint-plugin-spellcheck
-      - uses: yousufkalim/eslint-action@v1
+      - uses: yousufkalim/eslint-action@latest
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }} # Optional
-          eslint-args: "--ignore-path=.gitignore"
-          extensions: "js,jsx,ts,tsx"
+          eslint-args: '--ignore-path=.gitignore'
+          eslintrc: false # Set this to true if you want to use your own .eslintrc rules
+          extensions: 'js,jsx,ts,tsx'
           annotations: true
 ```
 
