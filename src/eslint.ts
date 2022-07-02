@@ -42,11 +42,12 @@ export const runEslint = async (inputs: Inputs): Promise<void> => {
   endGroup();
 
   if (!inputs.eslintrc) {
-    fs.writeFileSync('.eslintrc.js', `exports.default = ${eslintRules}`);
+    fs.writeFileSync('.eslintrc.json', JSON.stringify(eslintRules));
   }
 
   const execOptions = [path.resolve(inputs.binPath, 'eslint'), ...files, ...inputs.eslintArgs].filter(Boolean);
 
-  await exec('npm i');
+  await exec('npm i eslint eslint-config-airbnb eslint-plugin-spellcheck');
+
   await exec('node', execOptions);
 };
