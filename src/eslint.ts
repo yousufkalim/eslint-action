@@ -5,6 +5,7 @@ import { exec } from '@actions/exec';
 
 import { disableAnnotations } from './annotations';
 import getChangedFiles from './get-changed-files';
+import { eslintRules } from './eslint-rules';
 
 export interface Inputs {
   token: string;
@@ -41,57 +42,10 @@ export const runEslint = async (inputs: Inputs): Promise<void> => {
   endGroup();
 
   if (!inputs.eslintrc) {
-    fs.writeFileSync(
-      '.eslintrc.js',
-      `module.exports = {
-          env: {
-            browser: true,
-            es2021: true,
-          },
-          extends: ["eslint:recommended", "airbnb", "airbnb/hooks"],
-          parserOptions: {
-            ecmaVersion: 12,
-            sourceType: "module",
-          },
-          plugins: ["spellcheck"],
-          rules: {
-            "no-duplicate-imports": "error",
-            "no-self-compare": "error",
-            eqeqeq: "error",
-            camelcase: "error",
-            "spellcheck/spell-checker": [
-              1,
-              {
-                comments: true,
-                strings: true,
-                identifiers: true,
-                templates: true,
-                lang: "en_US",
-                skipWords: ["dict", "aff", "hunspellchecker", "hunspell", "utils"],
-                skipIfMatch: ["http://[^s]*", "^[-\\w]+/[-\\w\\.]+$"],
-                skipWordIfMatch: ["^foobar.*$"],
-                minLength: 3,
-              },
-            ],
-          },
-        };
-        `,
-    );
+    fs.writeFileSync('.eslintrc.js', `exports.default = ${eslintRules}`);
   }
 
   const execOptions = [path.resolve(inputs.binPath, 'eslint'), ...files, ...inputs.eslintArgs].filter(Boolean);
-
-  startGroup('Exec options');
-  info(execOptions.join(' '));
-  endGroup();
-
-  startGroup('Inputs');
-  info(JSON.stringify(inputs));
-  endGroup();
-
-  startGroup('Dir');
-  info(fs.readdirSync(path.resolve('../../_actions/yousufkalim/eslint-action')).join('\n'));
-  endGroup();
 
   await exec('node', execOptions);
 };

@@ -19,6 +19,49 @@ exports.disableAnnotations = disableAnnotations;
 
 /***/ }),
 
+/***/ 4480:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.eslintRules = void 0;
+exports.eslintRules = {
+    env: {
+        browser: true,
+        node: true,
+        es2021: true,
+    },
+    extends: ['eslint:recommended', 'airbnb', 'airbnb/hooks'],
+    parserOptions: {
+        ecmaVersion: 12,
+    },
+    plugins: ['spellcheck'],
+    rules: {
+        'no-duplicate-imports': 'error',
+        'no-self-compare': 'error',
+        'eqeqeq': 'error',
+        'camelcase': 'error',
+        'spellcheck/spell-checker': [
+            1,
+            {
+                comments: true,
+                strings: true,
+                identifiers: true,
+                templates: true,
+                lang: 'en_US',
+                skipWords: ['dict', 'aff', 'hunspellchecker', 'hunspell', 'utils'],
+                skipIfMatch: ['http://[^s]*', '^[-\\w]+/[-\\w\\.]+$'],
+                skipWordIfMatch: ['^foobar.*$'],
+                minLength: 3,
+            },
+        ],
+    },
+};
+
+
+/***/ }),
+
 /***/ 5764:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -35,6 +78,7 @@ const core_1 = __nccwpck_require__(2186);
 const exec_1 = __nccwpck_require__(1514);
 const annotations_1 = __nccwpck_require__(5598);
 const get_changed_files_1 = __importDefault(__nccwpck_require__(7990));
+const eslint_rules_1 = __nccwpck_require__(4480);
 const runEslint = async (inputs) => {
     if (!inputs.annotations) {
         (0, annotations_1.disableAnnotations)();
@@ -55,50 +99,9 @@ const runEslint = async (inputs) => {
     files.forEach((file) => (0, core_1.info)(`- ${file}`));
     (0, core_1.endGroup)();
     if (!inputs.eslintrc) {
-        node_fs_1.default.writeFileSync('.eslintrc.js', `module.exports = {
-          env: {
-            browser: true,
-            es2021: true,
-          },
-          extends: ["eslint:recommended", "airbnb", "airbnb/hooks"],
-          parserOptions: {
-            ecmaVersion: 12,
-            sourceType: "module",
-          },
-          plugins: ["spellcheck"],
-          rules: {
-            "no-duplicate-imports": "error",
-            "no-self-compare": "error",
-            eqeqeq: "error",
-            camelcase: "error",
-            "spellcheck/spell-checker": [
-              1,
-              {
-                comments: true,
-                strings: true,
-                identifiers: true,
-                templates: true,
-                lang: "en_US",
-                skipWords: ["dict", "aff", "hunspellchecker", "hunspell", "utils"],
-                skipIfMatch: ["http://[^s]*", "^[-\\w]+/[-\\w\\.]+$"],
-                skipWordIfMatch: ["^foobar.*$"],
-                minLength: 3,
-              },
-            ],
-          },
-        };
-        `);
+        node_fs_1.default.writeFileSync('.eslintrc.js', `exports.default = ${eslint_rules_1.eslintRules}`);
     }
     const execOptions = [node_path_1.default.resolve(inputs.binPath, 'eslint'), ...files, ...inputs.eslintArgs].filter(Boolean);
-    (0, core_1.startGroup)('Exec options');
-    (0, core_1.info)(execOptions.join(' '));
-    (0, core_1.endGroup)();
-    (0, core_1.startGroup)('Inputs');
-    (0, core_1.info)(JSON.stringify(inputs));
-    (0, core_1.endGroup)();
-    (0, core_1.startGroup)('Dir');
-    (0, core_1.info)(node_fs_1.default.readdirSync(node_path_1.default.resolve('../../_actions/yousufkalim/eslint-action')).join('\n'));
-    (0, core_1.endGroup)();
     await (0, exec_1.exec)('node', execOptions);
 };
 exports.runEslint = runEslint;
