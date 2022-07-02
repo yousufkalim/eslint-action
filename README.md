@@ -36,16 +36,27 @@ jobs:
           annotations: true
 ```
 
-## Security
-
-For better security it is recommended to pin actions to a full length commit SHA.
-
-Read more on [using third-party actions](https://docs.github.com/en/actions/learn-github-actions/security-hardening-for-github-actions#using-third-party-actions)
-
-## Known Issues
+## Common Issues
 
 - Yarn 2+ is not supported
 
-## Debugging
+## Contributing
 
-To enable debug logs, set secret `ACTIONS_STEP_DEBUG` to `true`. Refer docs more details https://docs.github.com/en/actions/managing-workflow-runs/enabling-debug-logging#enabling-step-debug-logging
+1. Fork it!
+2. Create your feature branch: `git checkout -b my-new-feature`
+3. Commit your changes: `git commit -am 'Add some feature'`
+4. Push to the branch: `git push origin my-new-feature`
+5. Submit a pull request :D
+
+## Infos
+
+- Use `yousufkalim/eslint-action@latest` to get the latest none development version of ESLint Code Review.
+
+- Please report everything like bugs by creating an [issue](https://github.com/yousufkalim/eslint-action/issues/new/choose).
+
+## Author
+
+**eslint-action** © [Yousuf](https://github.com/yousufkalim)  
+Authored and maintained by Yousuf Kalim.
+
+> GitHub [@yousufkalim](https://github.com/yousufkalim) · LinkedIn [@yousufkalim](https://www.linkedin.com/in/yousufkalim/)
