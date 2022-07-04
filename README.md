@@ -27,7 +27,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - uses: yousufkalim/eslint-action@latest
+      - name: ESLint Code Review
+        uses: yousufkalim/eslint-action@latest
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }} # Optional
           eslint-args: '--ignore-path=.gitignore'
