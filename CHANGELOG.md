@@ -14,6 +14,12 @@ All notable changes to this project will be documented in this file.
 > - Internal
 > - Unreleased
 
+## v1.1.9
+
+#### Bug Fixes
+
+- Added --force and --legacy-peer-deps flags on npm installation
+
 ## v1.1.8
 
 #### Enhancements

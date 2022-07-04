@@ -137,7 +137,7 @@ const runEslint = async (inputs) => {
     //   Options to run eslint
     const execOptions = [node_path_1.default.resolve(inputs.binPath, 'eslint'), ...files, ...inputs.eslintArgs].filter(Boolean);
     //   Installing required libs
-    await (0, exec_1.exec)('npm i eslint eslint-config-airbnb eslint-plugin-spellcheck');
+    await (0, exec_1.exec)('npm i eslint eslint-config-airbnb eslint-plugin-spellcheck --force --legacy-peer-deps');
     //   Executing eslint
     await (0, exec_1.exec)('node', execOptions);
 };

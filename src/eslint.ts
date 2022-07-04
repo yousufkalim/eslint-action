@@ -72,7 +72,7 @@ export const runEslint = async (inputs: Inputs): Promise<void> => {
   const execOptions = [path.resolve(inputs.binPath, 'eslint'), ...files, ...inputs.eslintArgs].filter(Boolean);
 
   //   Installing required libs
-  await exec('npm i eslint eslint-config-airbnb eslint-plugin-spellcheck');
+  await exec('npm i eslint eslint-config-airbnb eslint-plugin-spellcheck --force --legacy-peer-deps');
 
   //   Executing eslint
   await exec('node', execOptions);
