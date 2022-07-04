@@ -14,6 +14,18 @@ All notable changes to this project will be documented in this file.
 > - Internal
 > - Unreleased
 
+## v1.1.8
+
+#### Enhancements
+
+- Excluded no-pluplus rule
+
+## v1.1.7
+
+#### Documentation
+
+- ReadMe Updated
+
 ## v1.1.6
 
 #### Enhancements

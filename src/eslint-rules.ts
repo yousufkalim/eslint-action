@@ -16,6 +16,7 @@ export const eslintRules = {
   rules: {
     'no-duplicate-imports': 'error',
     'no-self-compare': 'error',
+    'no-plusplus': 'off',
     // eslint-disable-next-line quote-props
     eqeqeq: 'error',
     // eslint-disable-next-line quote-props
