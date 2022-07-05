@@ -14,6 +14,12 @@ All notable changes to this project will be documented in this file.
 > - Internal
 > - Unreleased
 
+## v2.0.2
+
+#### Bug Fixes
+
+- Bug fixed in npm installation
+
 ## v2.0.1
 
 #### Bug Fixes

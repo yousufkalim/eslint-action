@@ -141,7 +141,8 @@ const runEslint = async (inputs) => {
     //   Options to run eslint
     const execOptions = [node_path_1.default.resolve(inputs.binPath, 'eslint'), ...files, ...inputs.eslintArgs].filter(Boolean);
     //   Installing required libs
-    await (0, exec_1.exec)('npm i eslint eslint-config-airbnb eslint-plugin-spellcheck prettier --force --legacy-peer-deps');
+    await (0, exec_1.exec)('npm install --force --legacy-peer-deps');
+    await (0, exec_1.exec)('npm i eslint-config-airbnb eslint-plugin-spellcheck prettier');
     //   if auto-fix-before-test is true, then run prettier on the files
     if (inputs.autofix) {
         // Creating default .prettierrc file on user's project
