@@ -14,6 +14,12 @@ All notable changes to this project will be documented in this file.
 > - Internal
 > - Unreleased
 
+## v2.0.0
+
+#### Features
+
+- Added autofix functionality to format and fix lint issues before testing
+
 ## v1.1.9
 
 #### Bug Fixes
