@@ -10,6 +10,7 @@ import { exec } from '@actions/exec';
 import { disableAnnotations } from './annotations';
 import getChangedFiles from './get-changed-files';
 import { eslintRules } from './eslint-rules';
+import { prettierConfig } from './prettier-config';
 
 // user inputs interface
 export interface Inputs {
@@ -73,8 +74,18 @@ export const runEslint = async (inputs: Inputs): Promise<void> => {
   const execOptions = [path.resolve(inputs.binPath, 'eslint'), ...files, ...inputs.eslintArgs].filter(Boolean);
 
   //   Installing required libs
-  await exec('npm i eslint eslint-config-airbnb eslint-plugin-spellcheck --force --legacy-peer-deps');
+  await exec('npm i eslint eslint-config-airbnb eslint-plugin-spellcheck prettier --force --legacy-peer-deps');
 
-  //   Executing eslint
-  await exec('node', execOptions);
+  //   if auto-fix-before-test is true, then run prettier on the files
+  if (inputs.autofix) {
+    // Creating default .prettierrc file on user's project
+    fs.writeFileSync('.prettierrc', JSON.stringify(prettierConfig));
+
+    // Running prettier and eslint --fix on the files
+    await exec(`npx prettier --write ${files.join(' ')} --config ./.prettierrc`);
+    await exec(`npx eslint --fix ${files.join(' ')} ${inputs.eslintArgs.join(' ')}`);
+  } else {
+    //   Executing eslint
+    await exec('node', execOptions);
+  }
 };
