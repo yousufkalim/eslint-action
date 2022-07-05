@@ -31,6 +31,10 @@ inputs:
     description: 'Enable or disable annotations'
     required: false
     default: true
+  auto-fix-before-test:
+    description: 'Auto format and fix lint issues that are fixable by --fix before actual testing'
+    required: false
+    default: true
   bin-path:
     description: 'Path to eslint installation directory. Defaults to `node_modules/eslint/bin`'
     required: false

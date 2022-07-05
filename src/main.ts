@@ -19,6 +19,7 @@ const run = async (): Promise<void> => {
       annotations: getBooleanInput('annotations'),
       eslintArgs: getInput('eslint-args').split(' '),
       eslintrc: getBooleanInput('eslintrc'),
+      autofix: getBooleanInput('auto-fix-before-test'),
       binPath: getInput('bin-path'),
       extensions: getInput('extensions')
         .split(',')

@@ -17,6 +17,7 @@ export interface Inputs {
   annotations: boolean;
   eslintArgs: string[];
   eslintrc: boolean;
+  autofix: boolean;
   binPath: string;
   extensions: string[];
 }

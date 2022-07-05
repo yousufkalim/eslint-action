@@ -10007,6 +10007,7 @@ const run = async () => {
             annotations: (0, core_1.getBooleanInput)('annotations'),
             eslintArgs: (0, core_1.getInput)('eslint-args').split(' '),
             eslintrc: (0, core_1.getBooleanInput)('eslintrc'),
+            autofix: (0, core_1.getBooleanInput)('auto-fix-before-test'),
             binPath: (0, core_1.getInput)('bin-path'),
             extensions: (0, core_1.getInput)('extensions')
                 .split(',')
