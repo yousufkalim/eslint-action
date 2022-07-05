@@ -14,6 +14,12 @@ All notable changes to this project will be documented in this file.
 > - Internal
 > - Unreleased
 
+## v2.0.1
+
+#### Bug Fixes
+
+- Bug fixed in npx execution while autofix is true
+
 ## v2.0.0
 
 #### Features

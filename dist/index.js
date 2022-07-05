@@ -148,7 +148,9 @@ const runEslint = async (inputs) => {
         node_fs_1.default.writeFileSync('.prettierrc', JSON.stringify(prettier_config_1.prettierConfig));
         // Running prettier and eslint --fix on the files
         await (0, exec_1.exec)(`npx prettier --write ${files.join(' ')} --config ./.prettierrc`);
-        await (0, exec_1.exec)(`npx eslint --fix ${files.join(' ')} ${inputs.eslintArgs.join(' ')}`);
+        //   Executing eslint
+        execOptions.splice(1, 0, '--fix');
+        await (0, exec_1.exec)('node', execOptions);
     }
     else {
         //   Executing eslint

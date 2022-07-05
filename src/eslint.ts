@@ -83,7 +83,10 @@ export const runEslint = async (inputs: Inputs): Promise<void> => {
 
     // Running prettier and eslint --fix on the files
     await exec(`npx prettier --write ${files.join(' ')} --config ./.prettierrc`);
-    await exec(`npx eslint --fix ${files.join(' ')} ${inputs.eslintArgs.join(' ')}`);
+
+    //   Executing eslint
+    execOptions.splice(1, 0, '--fix');
+    await exec('node', execOptions);
   } else {
     //   Executing eslint
     await exec('node', execOptions);
