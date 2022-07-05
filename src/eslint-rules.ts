@@ -17,6 +17,9 @@ export const eslintRules = {
     'no-duplicate-imports': 'error',
     'no-self-compare': 'error',
     'no-plusplus': 'off',
+    'react/react-in-jsx-scope': 'off',
+    'react/prop-types': 'off',
+    'no-underscore-dangle': ['error', { allow: ['_id'] }],
     // eslint-disable-next-line quote-props
     eqeqeq: 'error',
     // eslint-disable-next-line quote-props
