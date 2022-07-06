@@ -75,7 +75,7 @@ export const runEslint = async (inputs: Inputs): Promise<void> => {
 
   //   Installing required libs
   await exec('npm install --force --legacy-peer-deps');
-  await exec('npm i eslint-config-airbnb eslint-plugin-spellcheck prettier');
+  await exec('npm i eslint-config-airbnb prettier');
 
   //   if auto-fix-before-test is true, then run prettier on the files
   if (inputs.autofix) {

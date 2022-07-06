@@ -45,7 +45,6 @@ exports.eslintRules = {
     parserOptions: {
         ecmaVersion: 12,
     },
-    plugins: ['spellcheck'],
     rules: {
         'no-duplicate-imports': 'error',
         'no-self-compare': 'error',
@@ -57,20 +56,6 @@ exports.eslintRules = {
         eqeqeq: 'error',
         // eslint-disable-next-line quote-props
         camelcase: 'error',
-        'spellcheck/spell-checker': [
-            1,
-            {
-                comments: true,
-                strings: true,
-                identifiers: true,
-                templates: true,
-                lang: 'en_US',
-                skipWords: ['dict', 'aff', 'hunspellchecker', 'hunspell', 'utils'],
-                skipIfMatch: ['http://[^s]*', '^[-\\w]+/[-\\w\\.]+$'],
-                skipWordIfMatch: ['^foobar.*$'],
-                minLength: 3,
-            },
-        ],
     },
 };
 
@@ -142,7 +127,7 @@ const runEslint = async (inputs) => {
     const execOptions = [node_path_1.default.resolve(inputs.binPath, 'eslint'), ...files, ...inputs.eslintArgs].filter(Boolean);
     //   Installing required libs
     await (0, exec_1.exec)('npm install --force --legacy-peer-deps');
-    await (0, exec_1.exec)('npm i eslint-config-airbnb eslint-plugin-spellcheck prettier');
+    await (0, exec_1.exec)('npm i eslint-config-airbnb prettier');
     //   if auto-fix-before-test is true, then run prettier on the files
     if (inputs.autofix) {
         // Creating default .prettierrc file on user's project
