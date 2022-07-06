@@ -14,6 +14,12 @@ All notable changes to this project will be documented in this file.
 > - Internal
 > - Unreleased
 
+## v2.0.4
+
+#### Enhancements
+
+- Using yarn instead of NPM
+
 ## v2.0.3
 
 #### Enhancements
