@@ -14,6 +14,12 @@ All notable changes to this project will be documented in this file.
 > - Internal
 > - Unreleased
 
+## v2.0.6
+
+#### Enhancements
+
+- Package manager changed from yarn to npm
+
 ## v2.0.5
 
 #### Enhancements

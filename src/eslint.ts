@@ -73,7 +73,7 @@ export const runEslint = async (inputs: Inputs): Promise<void> => {
   const execOptions = [path.resolve(inputs.binPath, 'eslint'), ...files, ...inputs.eslintArgs].filter(Boolean);
 
   //   Installing required libs
-  await exec('yarn add eslint eslint-config-airbnb');
+  await exec('npm i eslint-config-airbnb --legacy-peer-deps');
 
   //   if auto-fix-before-test is true, then run eslint with --fix
   if (inputs.autofix) {
