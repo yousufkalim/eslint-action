@@ -83,7 +83,6 @@ const exec_1 = __nccwpck_require__(1514);
 const annotations_1 = __nccwpck_require__(5598);
 const get_changed_files_1 = __importDefault(__nccwpck_require__(7990));
 const eslint_rules_1 = __nccwpck_require__(4480);
-const prettier_config_1 = __nccwpck_require__(8675);
 /**
  * runEslint
  * @param {Inputs} inputs
@@ -126,13 +125,9 @@ const runEslint = async (inputs) => {
     //   Options to run eslint
     const execOptions = [node_path_1.default.resolve(inputs.binPath, 'eslint'), ...files, ...inputs.eslintArgs].filter(Boolean);
     //   Installing required libs
-    await (0, exec_1.exec)('yarn add eslint eslint-config-airbnb prettier');
-    //   if auto-fix-before-test is true, then run prettier on the files
+    await (0, exec_1.exec)('yarn add eslint eslint-config-airbnb');
+    //   if auto-fix-before-test is true, then run eslint with --fix
     if (inputs.autofix) {
-        // Creating default .prettierrc file on user's project
-        node_fs_1.default.writeFileSync('.prettierrc', JSON.stringify(prettier_config_1.prettierConfig));
-        // Running prettier and eslint --fix on the files
-        await (0, exec_1.exec)(`npx prettier --write ${files.join(' ')} --config ./.prettierrc`);
         //   Executing eslint
         execOptions.splice(1, 0, '--fix');
         await (0, exec_1.exec)('node', execOptions);
@@ -204,29 +199,6 @@ const getChangedFiles = async (token) => {
 };
 // Export
 exports["default"] = getChangedFiles;
-
-
-/***/ }),
-
-/***/ 8675:
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.prettierConfig = void 0;
-/**
- * Default prettier config.
- * @author Yousuf Kalim
- */
-exports.prettierConfig = {
-    semi: true,
-    tabWidth: 2,
-    printWidth: 100,
-    singleQuote: true,
-    trailingComma: 'none',
-    jsxBracketSameLine: true,
-};
 
 
 /***/ }),

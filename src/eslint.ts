@@ -10,7 +10,6 @@ import { exec } from '@actions/exec';
 import { disableAnnotations } from './annotations';
 import getChangedFiles from './get-changed-files';
 import { eslintRules } from './eslint-rules';
-import { prettierConfig } from './prettier-config';
 
 // user inputs interface
 export interface Inputs {
@@ -74,16 +73,10 @@ export const runEslint = async (inputs: Inputs): Promise<void> => {
   const execOptions = [path.resolve(inputs.binPath, 'eslint'), ...files, ...inputs.eslintArgs].filter(Boolean);
 
   //   Installing required libs
-  await exec('yarn add eslint eslint-config-airbnb prettier');
+  await exec('yarn add eslint eslint-config-airbnb');
 
-  //   if auto-fix-before-test is true, then run prettier on the files
+  //   if auto-fix-before-test is true, then run eslint with --fix
   if (inputs.autofix) {
-    // Creating default .prettierrc file on user's project
-    fs.writeFileSync('.prettierrc', JSON.stringify(prettierConfig));
-
-    // Running prettier and eslint --fix on the files
-    await exec(`npx prettier --write ${files.join(' ')} --config ./.prettierrc`);
-
     //   Executing eslint
     execOptions.splice(1, 0, '--fix');
     await exec('node', execOptions);

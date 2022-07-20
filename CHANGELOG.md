@@ -14,6 +14,12 @@ All notable changes to this project will be documented in this file.
 > - Internal
 > - Unreleased
 
+## v2.0.5
+
+#### Enhancements
+
+- Removed prettier in order to make annotations accurate
+
 ## v2.0.4
 
 #### Enhancements
