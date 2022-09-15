@@ -14,6 +14,12 @@ All notable changes to this project will be documented in this file.
 > - Internal
 > - Unreleased
 
+## v2.0.7
+
+#### Internal
+
+- Disabled annotations as these are not accurate and are causing confusion
+
 ## v2.0.6
 
 #### Enhancements

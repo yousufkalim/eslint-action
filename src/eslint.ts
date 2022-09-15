@@ -29,9 +29,7 @@ export interface Inputs {
  */
 export const runEslint = async (inputs: Inputs): Promise<void> => {
   // Disabling annotations if user doesn't want to
-  if (!inputs.annotations) {
-    disableAnnotations();
-  }
+  disableAnnotations();
 
   // Getting the changed files
   const changedFiles = await getChangedFiles(inputs.token);

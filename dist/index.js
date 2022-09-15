@@ -90,9 +90,7 @@ const eslint_rules_1 = __nccwpck_require__(4480);
  */
 const runEslint = async (inputs) => {
     // Disabling annotations if user doesn't want to
-    if (!inputs.annotations) {
-        (0, annotations_1.disableAnnotations)();
-    }
+    (0, annotations_1.disableAnnotations)();
     // Getting the changed files
     const changedFiles = await (0, get_changed_files_1.default)(inputs.token);
     //   Printing the changed files on the console
