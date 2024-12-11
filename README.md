@@ -34,7 +34,7 @@ jobs:
           eslint-args: '--ignore-path=.gitignore'
           eslintrc: false # Set this to true if you want to use your own .eslintrc rules
           extensions: 'js,jsx,ts,tsx'
-          auto-auto-fix-before-test: false # Set this to true if want to format and fix all the lint issue before testing
+          auto-fix-before-test: false # Set this to true if want to format and fix all the lint issue before testing
           annotations: true
 ```
 
